@@ -47,8 +47,7 @@ class HumanController:
             for each in paths[0:len(paths)-2]:
                 trace = trace + each + "/"
             print(trace)
-            
-            f = open(self.trace_path + paths[len(paths)] + ".txt", "a+")
+            f = open(self.trace_path + paths[len(paths)-1] + ".txt", "a+")
             f.write("Observation" + str(obs) + ", Reward: " + str(reward) + " Done?: " + str(done) + '\n')
             f.close()
 
