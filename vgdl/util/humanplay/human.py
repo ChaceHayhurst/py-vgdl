@@ -13,6 +13,7 @@ class HumanController:
     def __init__(self, env_name, trace_path=None, fps=15):
         self.env_name = env_name
         self.env = gym.make(env_name)
+        self.trace_path = trace_path
         if not env_name.startswith('vgdl'):
             logger.debug('Assuming Atari env, enable AtariObservationWrapper')
             from .wrappers import AtariObservationWrapper
@@ -41,6 +42,10 @@ class HumanController:
             obs, reward, done, info = self.env.step(self.controls.current_action)
             if reward:
                 logger.debug("reward %0.3f" % reward)
+            
+            f = open(self.trace_path + '\\game.txt', "a")
+            f.write("Observation" + str(obs) + ", Reward: " + str(reward) + " Done?: " + str(done) + '\n')
+            f.close()
 
             self.cum_reward += reward
             window_open = self.env.render()
