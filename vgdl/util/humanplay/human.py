@@ -42,7 +42,7 @@ class HumanController:
             obs, reward, done, info = self.env.step(self.controls.current_action)
             if reward:
                 logger.debug("reward %0.3f" % reward)
-            Print("Saving to: " self.trace_path + "/" + self.env_name + ".txt")
+            print("Saving to: " + self.trace_path + "/" + self.env_name + ".txt")
             f = open(self.trace_path + "/" + self.env_name + ".txt", "a+")
             f.write("Observation" + str(obs) + ", Reward: " + str(reward) + " Done?: " + str(done) + '\n')
             f.close()
