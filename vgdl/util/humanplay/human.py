@@ -43,7 +43,7 @@ class HumanController:
             if reward:
                 logger.debug("reward %0.3f" % reward)
             
-            f = open(self.trace_path + "\\" + self.env_name + ".txt", "a")
+            f = open(self.trace_path + "/" + self.env_name + ".txt", "a+")
             f.write("Observation" + str(obs) + ", Reward: " + str(reward) + " Done?: " + str(done) + '\n')
             f.close()
 
