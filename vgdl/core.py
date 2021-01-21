@@ -552,7 +552,7 @@ class BasicGame:
         # TODO find a prettier way to drop this, should be after creating
         # sprites though
         level.init_state = level.get_game_state()
-
+        self.level = level
         return level
 
     def identity_dict(self):

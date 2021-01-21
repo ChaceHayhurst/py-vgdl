@@ -73,33 +73,3 @@ class NotableSpritesObserver(StateObserver):
 
         return KeyValueObservation(state)
 
-class UltrasonicObserver(StateObserver):
-
-    def _get_distance(self, s1, s2):
-        return (s1.rect.x - s2.rect.x, s1.rect.y - s2.rect.y)
-
-
-    def get_observation(self):
-        avatars = self.game.get_avatars()
-        assert avatars
-        avatar = avatars[0]
-
-        avatar_pos = avatar.rect.topleft
-        resources = [avatar.resources[r] for r in self.game.domain.notable_resources]
-        closestleft = avatar.rect.x
-        closestright = 10000
-        closesttop = 10000 
-        closestbottom = avatar.rect.y
-
-        for key in self.game.sprite_registry.sprite_keys:
-            dist = 100
-            for s in self.game.get_sprites(key):
-                
-
-                
-
-        obs = KeyValueObservation(
-            position=2, speed=3, resources=4,
-            distances=1
-        )
-        return obs

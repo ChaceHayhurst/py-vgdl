@@ -5,8 +5,9 @@ import itertools
 import numpy as np
 import logging
 import gym
-
-import vgdl.interfaces.gym
+import time
+import .vgdl.interfaces.gym
+import .Agent
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -42,10 +43,8 @@ def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, rep
         name_bits = observer.split('.')
         module_name = '.'.join(name_bits[:-1])
         class_name = name_bits[-1]
-        print(module_name)
-        print(class_name)
-        module = importlib.import_module('vgdl.state')
-        observer_cls = getattr(module, 'OneObserver')
+        module = importlib.import_module(module_name)
+        observer_cls = getattr(module, class_name)
     else:
         observer_cls = None
 
@@ -72,11 +71,11 @@ def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, rep
         done = False
         state = env._get_obs()
         reward = 0.
+
         while(not done):
             env.render()
-            action = 1
+            action = agent.getAction()
             obs, reward, done, _ = env.step(action)
-            print(obs)
     
     env.close()
 
@@ -84,7 +83,6 @@ def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, rep
 
 
 
-runGame(None, "C:/Users/Chace/Documents/GitHub/py-vgdl/vgdl/games/aliens_lvl0.txt", observer='vgdl.state.OneObserver')
 
 
 
