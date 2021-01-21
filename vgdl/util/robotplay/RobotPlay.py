@@ -4,7 +4,6 @@ import time
 import itertools
 import numpy as np
 import logging
-
 import gym
 
 import vgdl.interfaces.gym
@@ -32,10 +31,7 @@ def register_vgdl_env(domain_file, level_file, observer=None, blocksize=None):
 
 
 def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, reps=1, blocksize=24, tracedir=None, pause_on_finish=False):
-    parser = argparse.ArgumentParser(
-        description='Allows robot play of VGDL domain and level files, ' + \
-        'optionally loading additional ontology classes'
-    )
+
 
     if ontology is not None:
         import vgdl
@@ -46,8 +42,10 @@ def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, rep
         name_bits = observer.split('.')
         module_name = '.'.join(name_bits[:-1])
         class_name = name_bits[-1]
-        module = importlib.import_module(module_name)
-        observer_cls = getattr(module, class_name)
+        print(module_name)
+        print(class_name)
+        module = importlib.import_module('vgdl.state')
+        observer_cls = getattr(module, 'OneObserver')
     else:
         observer_cls = None
 
@@ -76,16 +74,17 @@ def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, rep
         reward = 0.
         while(not done):
             env.render()
-            action = agent.getAction(state, reward, env.action_space)
-            state, reward, done, _ = env.step(action)
+            action = 1
+            obs, reward, done, _ = env.step(action)
+            print(obs)
     
     env.close()
 
         
 
 
-if __name__ == '__main__':
-    main()
+
+runGame(None, "C:/Users/Chace/Documents/GitHub/py-vgdl/vgdl/games/aliens_lvl0.txt", observer='vgdl.state.OneObserver')
 
 
 

@@ -102,6 +102,22 @@ class AbsoluteObserver(StateObserver):
         return obs
 
 
+class OneObserver(StateObserver):
+    """
+    - Assumes a single-avatar grid physics game
+    - Observation is (x, y) of avatar's rectangle, in pixels
+    """
+
+    def __init__(self, game: BasicGame) -> None:
+        super().__init__(game)
+
+        avatar = game.sprite_registry.get_avatar()
+        assert issubclass(avatar.physicstype, GridPhysics)
+
+    def get_observation(self) -> Observation:
+        return [1.0]
+
+
 class AbsoluteGridObserver(StateObserver):
     """
     TODO: This is actually deprecated, get rid of it.
