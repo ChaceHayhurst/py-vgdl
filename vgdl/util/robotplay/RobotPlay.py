@@ -69,7 +69,7 @@ def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, rep
     for epoch_i in range(reps):
 
         done = False
-        state = env._get_obs()
+        obs = env._get_obs()
         reward = 0.
 
         while(not done):
