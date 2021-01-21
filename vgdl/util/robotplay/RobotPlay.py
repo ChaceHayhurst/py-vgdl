@@ -6,8 +6,8 @@ import numpy as np
 import logging
 import gym
 import time
-import .vgdl.interfaces.gym
-import .Agent
+import vgdl.interfaces.gym
+import Agent
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
