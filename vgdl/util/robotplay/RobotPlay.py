@@ -7,7 +7,7 @@ import logging
 import gym
 import time
 import vgdl.interfaces.gym
-import Agent
+import vgdl.util.robotplay.Agent
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
