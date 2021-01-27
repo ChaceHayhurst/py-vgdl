@@ -311,7 +311,7 @@ class CombinedObserver(StateObserver):
                     self.vocab[name] = self.curId
                     self.curId+= 1
                 
-                if(self._get_distance(avatar, sprite) < 10):
+                if(self._get_distance(avatar, sprite) < DistVar):
                     types.append(self.vocab[name])
                     positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
                 
