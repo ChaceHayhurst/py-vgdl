@@ -271,6 +271,27 @@ class CombinedObserver(StateObserver):
     def _get_distance(self, s1, s2):
         return math.hypot(s1.rect.x - s2.rect.x, s1.rect.y - s2.rect.y)
 
+    def collidesY(self, avatar, sprite):
+        ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
+        STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
+
+
+        if((ATR[1]>= STL[1] and ABR[1]<= STL[1]) or (ATR[1]>= STR[1] and ABR[1]<= STR[1]) or (ATR[1]>= SBL[1] and ABR[1]<= SBL[1])
+            or (ATR[1]>= SBR[1] and ABR[1]<= SBR[1])):
+            return True
+        
+        return False
+        
+    def collidesX(self, avatar, sprite):
+        ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
+        STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
+
+        if((ATL[0] <= STL[0] and ATR[0]>= STL[0]) or (ATL[0] <= STR[0] and ATR[0]>= STR[0]) or (ATL[0] <= SBL[0] and ATR[0]>= SBL[0])
+            or (ATL[0] <= SBR[0] and ATR[0]>= SBR[0])):
+            return True
+        
+        return False
+
     def get_observation(self):
         avatars = self.game.get_avatars()
         assert avatars
@@ -330,11 +351,8 @@ class CombinedObserver(StateObserver):
                         print(sprite.id)
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
 
-        obs1 = KeyValueObservation(
-            left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
+        obs = KeyValueObservation(
+            left = closestleft, right=closestright, top=closesttop, bottom = closestbottom, types = types, positions = positions
         )
-
-        obs2 = KeyValueObservation(
-            types = types, positions = positions
-        )
-        return obs1.merge(obs2)
+        
+        return obs
