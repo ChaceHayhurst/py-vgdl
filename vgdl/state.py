@@ -299,7 +299,7 @@ class CombinedObserver(StateObserver):
 
         avatar_pos = avatar.rect.topleft
         sprites = self.game.sprite_registry.sprites()
-
+        DistVar = (self.game.width*self.game.block_size+self.game.height*self.game.block_size)*0.2
         types = []
         positions = []
 
