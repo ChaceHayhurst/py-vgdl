@@ -74,7 +74,6 @@ def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, rep
 
         while(not done):
             env.render()
-            print(obs)
             action = agent.getAction(obs, reward, env.action_space)
             obs, reward, done, _ = env.step(action)
     
