@@ -356,3 +356,39 @@ class CombinedObserver(StateObserver):
         )
         
         return obs
+    
+
+
+class PerfectObserver(StateObserver):
+
+    def __init__(self, game: BasicGame) -> None:
+        super().__init__(game)
+        self.vocab = {}
+        self.curId = 0
+
+    def get_observation(self):
+        avatars = self.game.get_avatars()
+        assert avatars
+        avatar = avatars[0]
+
+        avatar_pos = avatar.rect.topleft
+        sprites = self.game.sprite_registry.sprites()
+        types = []
+        positions = []
+
+        for sprite in sprites:
+            if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
+                name = sprite.id.split('.')[0]
+
+                if not name in self.vocab:
+                    self.vocab[name] = self.curId
+                    self.curId+= 1
+                
+                types.append(self.vocab[name])
+                positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
+                
+
+        obs = KeyValueObservation(
+            types = types, positions = positions
+        )
+        return obs
