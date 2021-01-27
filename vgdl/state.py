@@ -239,7 +239,7 @@ class ColorObserver(StateObserver):
 
         avatar_pos = avatar.rect.topleft
         sprites = self.game.sprite_registry.sprites()
-
+        DistVar = (self.game.width*self.game.block_size+self.game.height*self.game.block_size)*0.1
         types = []
         positions = []
 
@@ -251,7 +251,7 @@ class ColorObserver(StateObserver):
                     self.vocab[name] = self.curId
                     self.curId+= 1
                 
-                if(self._get_distance(avatar, sprite) < 10):
+                if(self._get_distance(avatar, sprite) < DistVar):
                     types.append(self.vocab[name])
                     positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
                 
