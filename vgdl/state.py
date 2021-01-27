@@ -260,3 +260,81 @@ class ColorObserver(StateObserver):
             types = types, positions = positions
         )
         return obs
+
+class CombinedObserver(StateObserver):
+
+    def __init__(self, game: BasicGame) -> None:
+        super().__init__(game)
+        self.vocab = {}
+        self.curId = 0
+
+    def _get_distance(self, s1, s2):
+        return math.hypot(s1.rect.x - s2.rect.x, s1.rect.y - s2.rect.y)
+
+    def get_observation(self):
+        avatars = self.game.get_avatars()
+        assert avatars
+        avatar = avatars[0]
+
+        avatar_pos = avatar.rect.topleft
+        sprites = self.game.sprite_registry.sprites()
+
+        types = []
+        positions = []
+
+        for sprite in sprites:
+            if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
+                name = sprite.id.split('.')[0]
+
+                if not name in self.vocab:
+                    self.vocab[name] = self.curId
+                    self.curId+= 1
+                
+                if(self._get_distance(avatar, sprite) < 10):
+                    types.append(self.vocab[name])
+                    positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
+                
+                avatars = self.game.get_avatars()
+        assert avatars
+        avatar = avatars[0]
+
+        avatar_pos = avatar.rect.topleft
+        sprites = self.game.sprite_registry.sprites()
+        #Initializes walls as farthest points
+        closestleft = avatar.rect.x
+        closestright = self.game.width*self.game.block_size - avatar.rect.x
+        closestbottom = self.game.height*self.game.block_size - avatar.rect.y
+        closesttop = avatar.rect.y
+
+        for sprite in sprites:
+            if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
+                t1 = self.collidesX(avatar, sprite) or self.collidesX(sprite, avatar)
+                t2 = self.collidesY(avatar, sprite) or self.collidesY(sprite, avatar)
+
+                if(t1):
+                    if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
+                        and abs(sprite.rect.y-avatar.rect.y) != 0):
+                        closestbottom = abs(sprite.rect.y-avatar.rect.y)
+                
+                    if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
+                        and abs(sprite.rect.y-avatar.rect.y) != 0):
+                        closesttop = abs(sprite.rect.y-avatar.rect.y)
+                
+                if(t2):
+                    if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
+                        and abs(sprite.rect.x-avatar.rect.x) != 0):
+                        closestright = abs(sprite.rect.x-avatar.rect.x)
+                
+                    if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
+                        and abs(sprite.rect.x-avatar.rect.x) != 0):
+                        print(sprite.id)
+                        closestleft = abs(sprite.rect.x-avatar.rect.x)
+
+        obs1 = KeyValueObservation(
+            left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
+        )
+
+        obs2 = KeyValueObservation(
+            types = types, positions = positions
+        )
+        return obs1.merge(obs2)

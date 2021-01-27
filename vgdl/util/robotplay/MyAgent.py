@@ -8,18 +8,12 @@ class MyAgent(Agent):
         self.i = 0
 
     def getAction(self, state, reward, possible_actions):
-        time.sleep(1)
+        time.sleep(0.2)
         self.i+= 1
-        if(0<self.i and self.i <6):
+        if (0<self.i and self.i<7):
             return 0
-        if(6<=self.i and self.i<15):
-            return 3
-        if(self.i == 15):
-            return 1
-        if(15<self.i and self.i<18):
-            return 3
-        if(self.i>=18):
-            return 5
+        return 3
+
         
 
 
