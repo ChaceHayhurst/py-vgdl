@@ -254,7 +254,6 @@ class UltrasonicObserver(StateObserver):
             left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
         )
 
-        obs = KeyValueObservation(hi = 1)
         return obs
 
 class ColorObserver(StateObserver):
