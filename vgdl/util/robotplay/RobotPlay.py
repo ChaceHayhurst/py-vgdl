@@ -43,8 +43,8 @@ def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, rep
         name_bits = observer.split('.')
         module_name = '.'.join(name_bits[:-1])
         class_name = name_bits[-1]
-        module = importlib.import_module(module_name)
-        observer_cls = getattr('vgdl.state', 'UltrasonicObserver')
+        module = importlib.import_module('vgdl.state')
+        observer_cls = getattr(module, 'UltrasonicObserver')
     else:
         observer_cls = None
 
