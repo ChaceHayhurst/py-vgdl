@@ -160,99 +160,99 @@ class UltrasonicObserver(StateObserver):
     def _get_distance(self, s1, s2):
         return (s1.rect.x - s2.rect.x, s1.rect.y - s2.rect.y)
 
-    # def collidesY(self, avatar, sprite, game):
-    #     ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
-    #     STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
+    def collidesY(self, avatar, sprite, game):
+        ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
+        STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
 
-    #     ATL = (ATL[0], -ATL[1])
-    #     ATR = (ATR[0], -ATR[1])
-    #     ABL = (ABL[0], -ABL[1])
-    #     ABR = (ABR[0], -ABR[1])
-    #     STL = (STL[0], -STL[1])
-    #     STR = (STR[0], -STR[1])
-    #     SBL = (SBL[0], -SBL[1])
-    #     SBR = (SBR[0], -SBR[1])
+        ATL = (ATL[0], -ATL[1])
+        ATR = (ATR[0], -ATR[1])
+        ABL = (ABL[0], -ABL[1])
+        ABR = (ABR[0], -ABR[1])
+        STL = (STL[0], -STL[1])
+        STR = (STR[0], -STR[1])
+        SBL = (SBL[0], -SBL[1])
+        SBR = (SBR[0], -SBR[1])
 
-    #     mod = game.height*game.block_size
+        mod = game.height*game.block_size
 
-    #     line1 = LineString([(ATL[0], 0), (ATL[0], -mod)])
-    #     line2 = LineString([(ATR[0], 0), (ATR[0], -mod)])
-    #     sprite = Polygon([STL, STR, SBL, SBR])
+        line1 = LineString([(ATL[0], 0), (ATL[0], -mod)])
+        line2 = LineString([(ATR[0], 0), (ATR[0], -mod)])
+        sprite = Polygon([STL, STR, SBL, SBR])
 
-    #     if(line1.intersects(sprite)):
-    #         return True
-    #     elif(line2.intersects(sprite)):
-    #         return True
+        if(line1.intersects(sprite)):
+            return True
+        elif(line2.intersects(sprite)):
+            return True
         
-    #     return False
+        return False
         
-    # def collidesX(self, avatar, sprite, game):
-    #     ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
-    #     STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
+    def collidesX(self, avatar, sprite, game):
+        ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
+        STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
 
-    #     ATL = (ATL[0], -ATL[1])
-    #     ATR = (ATR[0], -ATR[1])
-    #     ABL = (ABL[0], -ABL[1])
-    #     ABR = (ABR[0], -ABR[1])
-    #     STL = (STL[0], -STL[1])
-    #     STR = (STR[0], -STR[1])
-    #     SBL = (SBL[0], -SBL[1])
-    #     SBR = (SBR[0], -SBR[1])
+        ATL = (ATL[0], -ATL[1])
+        ATR = (ATR[0], -ATR[1])
+        ABL = (ABL[0], -ABL[1])
+        ABR = (ABR[0], -ABR[1])
+        STL = (STL[0], -STL[1])
+        STR = (STR[0], -STR[1])
+        SBL = (SBL[0], -SBL[1])
+        SBR = (SBR[0], -SBR[1])
 
-    #     mod = game.width*game.block_size
+        mod = game.width*game.block_size
 
-    #     line1 = LineString([(ATL[1], 0), (ATL[1], mod)])
-    #     line2 = LineString([(ATR[1], 0), (ATR[1], mod)])
-    #     sprite = Polygon([STL, STR, SBL, SBR])
+        line1 = LineString([(ATL[1], 0), (ATL[1], mod)])
+        line2 = LineString([(ATR[1], 0), (ATR[1], mod)])
+        sprite = Polygon([STL, STR, SBL, SBR])
 
-    #     if(line1.intersects(sprite)):
-    #         return True
-    #     elif (line2.intersects(sprite)):
-    #         return True
+        if(line1.intersects(sprite)):
+            return True
+        elif (line2.intersects(sprite)):
+            return True
         
-    #     return False
+        return False
 
     def get_observation(self):
-        # avatars = self.game.get_avatars()
-        # assert avatars
-        # avatar = avatars[0]
+        avatars = self.game.get_avatars()
+        assert avatars
+        avatar = avatars[0]
 
-        # avatar_pos = avatar.rect.topleft
-        # sprites = self.game.sprite_registry.sprites()
-        # #Initializes walls as farthest points
-        # closestleft = avatar.rect.x
-        # closestright = self.game.width*self.game.block_size - avatar.rect.x
-        # closestbottom = self.game.height*self.game.block_size - avatar.rect.y
-        # closesttop = avatar.rect.y
+        avatar_pos = avatar.rect.topleft
+        sprites = self.game.sprite_registry.sprites()
+        #Initializes walls as farthest points
+        closestleft = avatar.rect.x
+        closestright = self.game.width*self.game.block_size - avatar.rect.x
+        closestbottom = self.game.height*self.game.block_size - avatar.rect.y
+        closesttop = avatar.rect.y
 
-        # for sprite in sprites:
-        #     if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
+        for sprite in sprites:
+            if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
 
-        #         t1 = self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
-        #         t2 = self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
+                t1 = self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
+                t2 = self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
 
-        #         if(t1):
-        #             if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
-        #                 and abs(sprite.rect.y-avatar.rect.y) != 0):
-        #                 closestbottom = abs(sprite.rect.y-avatar.rect.y)
+                if(t1):
+                    if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
+                        and abs(sprite.rect.y-avatar.rect.y) != 0):
+                        closestbottom = abs(sprite.rect.y-avatar.rect.y)
                 
-        #             if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
-        #                 and abs(sprite.rect.y-avatar.rect.y) != 0):
-        #                 closesttop = abs(sprite.rect.y-avatar.rect.y)
+                    if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
+                        and abs(sprite.rect.y-avatar.rect.y) != 0):
+                        closesttop = abs(sprite.rect.y-avatar.rect.y)
                 
-        #         if(t2):
-        #             if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
-        #                 and abs(sprite.rect.x-avatar.rect.x) != 0):
-        #                 closestright = abs(sprite.rect.x-avatar.rect.x)
+                if(t2):
+                    if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
+                        and abs(sprite.rect.x-avatar.rect.x) != 0):
+                        closestright = abs(sprite.rect.x-avatar.rect.x)
                 
-        #             if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
-        #                 and abs(sprite.rect.x-avatar.rect.x) != 0):
-        #                 print(sprite.id)
-        #                 closestleft = abs(sprite.rect.x-avatar.rect.x)
+                    if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
+                        and abs(sprite.rect.x-avatar.rect.x) != 0):
+                        print(sprite.id)
+                        closestleft = abs(sprite.rect.x-avatar.rect.x)
 
-        # obs = KeyValueObservation(
-        #     left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
-        # )
+        obs = KeyValueObservation(
+            left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
+        )
 
         obs = KeyValueObservation(hi = 1)
         return obs
