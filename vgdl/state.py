@@ -253,7 +253,7 @@ class UltrasonicObserver(StateObserver):
         obs = KeyValueObservation(
             left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
         )
-
+        
         return obs
 
 
