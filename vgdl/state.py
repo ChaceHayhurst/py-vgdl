@@ -181,7 +181,7 @@ class UltrasonicObserver(StateObserver):
 
         if(line1.intersects(sprite)):
             return True
-        else if(line2.intersects(sprite)):
+        elif(line2.intersects(sprite)):
             return True
         
         return False
@@ -207,7 +207,7 @@ class UltrasonicObserver(StateObserver):
 
         if(line1.intersects(sprite)):
             return True
-        else if(line2.intersects(sprite)):
+        elif (line2.intersects(sprite)):
             return True
         
         return False
