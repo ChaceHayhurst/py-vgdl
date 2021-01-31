@@ -213,46 +213,48 @@ class UltrasonicObserver(StateObserver):
         return False
 
     def get_observation(self):
-        avatars = self.game.get_avatars()
-        assert avatars
-        avatar = avatars[0]
+        # avatars = self.game.get_avatars()
+        # assert avatars
+        # avatar = avatars[0]
 
-        avatar_pos = avatar.rect.topleft
-        sprites = self.game.sprite_registry.sprites()
-        #Initializes walls as farthest points
-        closestleft = avatar.rect.x
-        closestright = self.game.width*self.game.block_size - avatar.rect.x
-        closestbottom = self.game.height*self.game.block_size - avatar.rect.y
-        closesttop = avatar.rect.y
+        # avatar_pos = avatar.rect.topleft
+        # sprites = self.game.sprite_registry.sprites()
+        # #Initializes walls as farthest points
+        # closestleft = avatar.rect.x
+        # closestright = self.game.width*self.game.block_size - avatar.rect.x
+        # closestbottom = self.game.height*self.game.block_size - avatar.rect.y
+        # closesttop = avatar.rect.y
 
-        for sprite in sprites:
-            if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
+        # for sprite in sprites:
+        #     if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
 
-                t1 = self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
-                t2 = self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
+        #         t1 = self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
+        #         t2 = self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
 
-                if(t1):
-                    if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
-                        and abs(sprite.rect.y-avatar.rect.y) != 0):
-                        closestbottom = abs(sprite.rect.y-avatar.rect.y)
+        #         if(t1):
+        #             if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
+        #                 and abs(sprite.rect.y-avatar.rect.y) != 0):
+        #                 closestbottom = abs(sprite.rect.y-avatar.rect.y)
                 
-                    if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
-                        and abs(sprite.rect.y-avatar.rect.y) != 0):
-                        closesttop = abs(sprite.rect.y-avatar.rect.y)
+        #             if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
+        #                 and abs(sprite.rect.y-avatar.rect.y) != 0):
+        #                 closesttop = abs(sprite.rect.y-avatar.rect.y)
                 
-                if(t2):
-                    if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
-                        and abs(sprite.rect.x-avatar.rect.x) != 0):
-                        closestright = abs(sprite.rect.x-avatar.rect.x)
+        #         if(t2):
+        #             if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
+        #                 and abs(sprite.rect.x-avatar.rect.x) != 0):
+        #                 closestright = abs(sprite.rect.x-avatar.rect.x)
                 
-                    if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
-                        and abs(sprite.rect.x-avatar.rect.x) != 0):
-                        print(sprite.id)
-                        closestleft = abs(sprite.rect.x-avatar.rect.x)
+        #             if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
+        #                 and abs(sprite.rect.x-avatar.rect.x) != 0):
+        #                 print(sprite.id)
+        #                 closestleft = abs(sprite.rect.x-avatar.rect.x)
 
-        obs = KeyValueObservation(
-            left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
-        )
+        # obs = KeyValueObservation(
+        #     left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
+        # )
+
+        obs = KeyValueObservation(left = 1)
         return obs
 
 
