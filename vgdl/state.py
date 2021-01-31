@@ -6,7 +6,7 @@ from vgdl.tools import PrettyDict
 import math
 import copy
 import numpy as np
-from shapely.geometry import *
+from shapely.geometry import Polygon, LineString
 
 class Observation:
     def as_array(self):
