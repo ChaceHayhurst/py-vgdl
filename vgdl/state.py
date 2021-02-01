@@ -7,6 +7,7 @@ import math
 import copy
 import numpy as np
 from shapely.geometry import Polygon, LineString
+import matplotlib as plt
 
 class Observation:
     def as_array(self):
@@ -205,12 +206,14 @@ class UltrasonicObserver(StateObserver):
             plt.plot(x,y)
             x,y = avatar.exterior.xy
             plt.plot(x, y)
+            plt.show()
             print('t')
             return True
         x,y = sprite.exterior.xy
             plt.plot(x,y)
             x,y = avatar.exterior.xy
             plt.plot(x, y)
+            plt.show()
             print('f')    
         return False
 
