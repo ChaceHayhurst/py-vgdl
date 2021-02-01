@@ -204,14 +204,14 @@ class UltrasonicObserver(StateObserver):
         if(line1.intersects(sprite) and not line1.touches(sprite)):
             x,y = sprite.exterior.xy
             plt.plot(x,y)
-            x,y = avatar.exterior.xy
+            x,y = line1.exterior.xy
             plt.plot(x, y)
             plt.show()
             print('t')
             return True
         x,y = sprite.exterior.xy
         plt.plot(x,y)
-        x,y = avatar.exterior.xy
+        x,y = line1.exterior.xy
         plt.plot(x, y)
         plt.show()
         print('f')    
