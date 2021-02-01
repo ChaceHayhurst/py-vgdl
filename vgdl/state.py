@@ -223,6 +223,8 @@ class UltrasonicObserver(StateObserver):
         closestleft = avatar.rect.x
         closestright = self.game.width*self.game.block_size - avatar.rect.x
         closestbottom = self.game.height*self.game.block_size - avatar.rect.y
+        print(self.game.height*self.game.block_size)
+        print(self.game.width*self.game.block_size)
         closesttop = avatar.rect.y
 
         for sprite in sprites:
