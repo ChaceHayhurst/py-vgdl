@@ -223,24 +223,18 @@ class UltrasonicObserver(StateObserver):
                 t2 = self.collidesX(avatar, sprite, self.game)
 
                 if(t1):
-                    if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
-                        and abs(sprite.rect.y-avatar.rect.y) != 0):
+                    if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom):
                         closestbottom = abs(sprite.rect.y-avatar.rect.y)
                 
-                    if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
-                        and abs(sprite.rect.y-avatar.rect.y) != 0):
+                    if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop):
                         closesttop = abs(sprite.rect.y-avatar.rect.y)
                 
                 if(t2):
-                    if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
-                        and abs(sprite.rect.x-avatar.rect.x) != 0):
+                    if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright):
                         closestright = abs(sprite.rect.x-avatar.rect.x)
-                        print("r " + sprite.id)
                 
-                    if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
-                        and abs(sprite.rect.x-avatar.rect.x) != 0):
+                    if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft):
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
-                        print('l ' + sprite.id)
 
 
         obs = KeyValueObservation(
