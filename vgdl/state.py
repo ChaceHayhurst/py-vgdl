@@ -176,7 +176,7 @@ class UltrasonicObserver(StateObserver):
 
         mod = game.height*game.block_size
 
-        line1 = Polygon([(ATL[0], 0), (ATL[0], mod), (ABR[0], 0), (ABR[0], mod)])
+        line1 = Polygon([(ATL[0], 0), (ATR[0], mod), (ABL[0], 0), (ABR[0], mod)])
         sprite = Polygon([STL, STR, SBL, SBR])
 
         if(line1.intersects(sprite) and not line1.touches(sprite)):
@@ -198,23 +198,12 @@ class UltrasonicObserver(StateObserver):
 
         mod = game.width*game.block_size
 
-        line1 = Polygon([(0, ATL[1]), (mod, ATL[1]), (0, ABL[1]), (mod, ABL[1])])
+        line1 = Polygon([(0, ATL[1]), (mod, ATR[1]), (0, ABL[1]), (mod, ABR[1])])
         sprite = Polygon([STL, STR, SBL, SBR])
 
         if(line1.intersects(sprite) and not line1.touches(sprite)):
-            x,y = sprite.exterior.xy
-            plt.plot(x,y)
-            x,y = line1.exterior.xy
-            plt.plot(x, y)
-            plt.show()
-            print('t')
             return True
-        x,y = sprite.exterior.xy
-        plt.plot(x,y)
-        x,y = line1.exterior.xy
-        plt.plot(x, y)
-        plt.show()
-        print('f')    
+
         return False
 
     def get_observation(self):
