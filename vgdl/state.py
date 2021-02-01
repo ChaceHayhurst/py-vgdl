@@ -206,9 +206,6 @@ class UltrasonicObserver(StateObserver):
 
         if(line1.intersects(sprite) and not line1.touches(sprite)):
             return True
-        elif (line2.intersects(sprite) and not line2.touches(sprite)):
-            return True
-        
         return False
 
     def get_observation(self):
