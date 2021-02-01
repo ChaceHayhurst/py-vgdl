@@ -164,7 +164,6 @@ class UltrasonicObserver(StateObserver):
     def collidesY(self, avatarx, sprite, game):
         
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
-        sprite = Polygon(STL, STR, SBL, SBR)
 
         STL = (STL[0], -STL[1])
         STR = (STR[0], -STR[1])
