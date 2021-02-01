@@ -178,7 +178,7 @@ class UltrasonicObserver(StateObserver):
         line1 = Polygon([(ATL[0], 0), (ATL[0], -mod), (ABR[0], 0), (ABR[0], -mod)])
         sprite = Polygon([STL, STR, SBL, SBR])
 
-        if(line1.intersects(sprite)):
+        if(line1.overlaps(sprite)):
             return True
         return False
         
@@ -200,7 +200,7 @@ class UltrasonicObserver(StateObserver):
         line1 = Polygon([(0, ATL[1]), (mod, ATL[1]), (0, ABL[1]), (mod, ABL[1])])
         sprite = Polygon([STL, STR, SBL, SBR])
 
-        if(line1.intersects(sprite)):
+        if(line1.overlaps(sprite)):
             return True
         return False
 
@@ -219,10 +219,10 @@ class UltrasonicObserver(StateObserver):
         for sprite in sprites:
             if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
 
-                t1 = self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
-                t2 = self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
+                t1 = self.collidesY(avatar, sprite, self.game)
+                t2 = self.collidesX(avatar, sprite, self.game)
 
-                if(t1 and not t2):
+                if(t1):
                     if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
                         and abs(sprite.rect.y-avatar.rect.y) != 0):
                         closestbottom = abs(sprite.rect.y-avatar.rect.y)
@@ -231,7 +231,7 @@ class UltrasonicObserver(StateObserver):
                         and abs(sprite.rect.y-avatar.rect.y) != 0):
                         closesttop = abs(sprite.rect.y-avatar.rect.y)
                 
-                if(t2 and not sprite.rect.topleft[1] > avatar.rect.bottomleft[1]):
+                if(t2):
                     if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestright = abs(sprite.rect.x-avatar.rect.x)
