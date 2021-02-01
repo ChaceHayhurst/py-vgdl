@@ -236,21 +236,23 @@ class UltrasonicObserver(StateObserver):
                     if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
                         and abs(sprite.rect.y-avatar.rect.y) != 0):
                         closestbottom = abs(sprite.rect.y-avatar.rect.y)
+                        print('t ' + sprite.id)
                 
                     if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
                         and abs(sprite.rect.y-avatar.rect.y) != 0):
                         closesttop = abs(sprite.rect.y-avatar.rect.y)
+                        print('b ' + sprite.id)
                 
                 if(t2):
                     if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestright = abs(sprite.rect.x-avatar.rect.x)
-                        print("r" + sprite.id)
+                        print("r " + sprite.id)
                 
                     if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
-                        print('l' + sprite.id)
+                        print('l ' + sprite.id)
 
 
         obs = KeyValueObservation(
