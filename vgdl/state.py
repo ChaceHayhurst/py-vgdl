@@ -186,33 +186,33 @@ class UltrasonicObserver(StateObserver):
         print(self.game.width*self.game.block_size)
         closesttop = avatar.rect.y
 
-        for sprite in sprites:
-            if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
+        # for sprite in sprites:
+        #     if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
 
-                t1 = True
-                # self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
-                t2 = True
-                # self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
+        #         t1 = True
+        #         # self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
+        #         t2 = True
+        #         # self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
 
-                if(t1):
-                    if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
-                        and abs(sprite.rect.y-avatar.rect.y) != 0):
-                        closestbottom = abs(sprite.rect.y-avatar.rect.y)
+        #         if(t1):
+        #             if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
+        #                 and abs(sprite.rect.y-avatar.rect.y) != 0):
+        #                 closestbottom = abs(sprite.rect.y-avatar.rect.y)
                 
-                    if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
-                        and abs(sprite.rect.y-avatar.rect.y) != 0):
-                        closesttop = abs(sprite.rect.y-avatar.rect.y)
+        #             if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
+        #                 and abs(sprite.rect.y-avatar.rect.y) != 0):
+        #                 closesttop = abs(sprite.rect.y-avatar.rect.y)
                 
-                if(t2):
-                    if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
-                        and abs(sprite.rect.x-avatar.rect.x) != 0):
-                        closestright = abs(sprite.rect.x-avatar.rect.x)
-                        print("r " + sprite.id)
+        #         if(t2):
+        #             if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
+        #                 and abs(sprite.rect.x-avatar.rect.x) != 0):
+        #                 closestright = abs(sprite.rect.x-avatar.rect.x)
+        #                 print("r " + sprite.id)
                 
-                    if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
-                        and abs(sprite.rect.x-avatar.rect.x) != 0):
-                        closestleft = abs(sprite.rect.x-avatar.rect.x)
-                        print('l ' + sprite.id)
+        #             if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
+        #                 and abs(sprite.rect.x-avatar.rect.x) != 0):
+        #                 closestleft = abs(sprite.rect.x-avatar.rect.x)
+        #                 print('l ' + sprite.id)
 
 
         obs = KeyValueObservation(
