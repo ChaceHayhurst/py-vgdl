@@ -163,55 +163,14 @@ class UltrasonicObserver(StateObserver):
     def collidesY(self, avatar, sprite, game):
         ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
-
-        ATL = (ATL[0], -ATL[1])
-        ATR = (ATR[0], -ATR[1])
-        ABL = (ABL[0], -ABL[1])
-        ABR = (ABR[0], -ABR[1])
-        STL = (STL[0], -STL[1])
-        STR = (STR[0], -STR[1])
-        SBL = (SBL[0], -SBL[1])
-        SBR = (SBR[0], -SBR[1])
-
-        mod = game.height*game.block_size
-
-        line1 = LineString([(ATL[0], 0), (ATL[0], -mod)])
-        line2 = LineString([(ATR[0], 0), (ATR[0], -mod)])
-        sprite = Polygon([STL, STR, SBL, SBR])
-
-        if(line1.crosses(sprite)):
-            return True
-        elif(line2.crosses(sprite)):
-            return True
-        
-        return False
+        return 1
         
     def collidesX(self, avatar, sprite, game):
         ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
+        return 1
 
-        ATL = (ATL[0], -ATL[1])
-        ATR = (ATR[0], -ATR[1])
-        ABL = (ABL[0], -ABL[1])
-        ABR = (ABR[0], -ABR[1])
-        STL = (STL[0], -STL[1])
-        STR = (STR[0], -STR[1])
-        SBL = (SBL[0], -SBL[1])
-        SBR = (SBR[0], -SBR[1])
 
-        mod = game.width*game.block_size
-
-        line1 = LineString([(0, ATL[1]), (mod, ATL[1])])
-        line2 = LineString([(0, ABR[1]), (mod, ABR[1])])
-        sprite = Polygon([STL, STR, SBL, SBR])
-        av = Polygon([ATL, ATR, ABL, ABR])
-
-        if(line1.intersects(sprite) and not line1.touches(sprite)):
-            return True
-        elif (line2.intersects(sprite) and not line2.touches(sprite)):
-            return True
-        
-        return False
 
     def get_observation(self):
         avatars = self.game.get_avatars()
