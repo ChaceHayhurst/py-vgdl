@@ -214,7 +214,6 @@ class UltrasonicObserver(StateObserver):
 
     def get_observation(self):
         avatars = self.game.get_avatars()
-        assert avatars
         avatar = avatars[0]
 
         avatar_pos = avatar.rect.topleft
@@ -232,7 +231,7 @@ class UltrasonicObserver(StateObserver):
                 t2 = self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
 
                 if(t1):
-                    print(1)
+                    print(sprite.id)
                     if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
                         and abs(sprite.rect.y-avatar.rect.y) != 0):
                         closestbottom = abs(sprite.rect.y-avatar.rect.y)
@@ -242,7 +241,7 @@ class UltrasonicObserver(StateObserver):
                         closesttop = abs(sprite.rect.y-avatar.rect.y)
                 
                 if(t2):
-                    print(2)
+                    print(sprite.id)
                     if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestright = abs(sprite.rect.x-avatar.rect.x)
