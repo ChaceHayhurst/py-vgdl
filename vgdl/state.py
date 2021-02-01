@@ -210,11 +210,11 @@ class UltrasonicObserver(StateObserver):
             print('t')
             return True
         x,y = sprite.exterior.xy
-            plt.plot(x,y)
-            x,y = avatar.exterior.xy
-            plt.plot(x, y)
-            plt.show()
-            print('f')    
+        plt.plot(x,y)
+        x,y = avatar.exterior.xy
+        plt.plot(x, y)
+        plt.show()
+        print('f')    
         return False
 
     def get_observation(self):
