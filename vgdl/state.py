@@ -161,36 +161,11 @@ class UltrasonicObserver(StateObserver):
     def _get_distance(self, s1, s2):
         return (s1.rect.x - s2.rect.x, s1.rect.y - s2.rect.y)
 
-    def collidesY(self, avatar, sprite, game):
-        ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
-        STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
-
-        ATL = (ATL[0], -ATL[1])
-        ATR = (ATR[0], -ATR[1])
-        ABL = (ABL[0], -ABL[1])
-        ABR = (ABR[0], -ABR[1])
-        STL = (STL[0], -STL[1])
-        STR = (STR[0], -STR[1])
-        SBL = (SBL[0], -SBL[1])
-        SBR = (SBR[0], -SBR[1])
-
-        mod = game.height*game.block_size
-
-        line1 = Polygon([(ATL[0], 0), (ATR[0], mod), (ABL[0], 0), (ABR[0], mod)])
-        sprite = Polygon([STL, STR, SBL, SBR])
-
-        if(line1.intersects(sprite)):
-            return True
-        return False
+    def collidesY(self, avatarx, sprite, game):
         
-    def collidesX(self, avatar, sprite, game):
-        ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
+        sprite = Polygon(STL, STR, SBL, SBR)
 
-        ATL = (ATL[0], -ATL[1])
-        ATR = (ATR[0], -ATR[1])
-        ABL = (ABL[0], -ABL[1])
-        ABR = (ABR[0], -ABR[1])
         STL = (STL[0], -STL[1])
         STR = (STR[0], -STR[1])
         SBL = (SBL[0], -SBL[1])
@@ -198,7 +173,27 @@ class UltrasonicObserver(StateObserver):
 
         mod = game.width*game.block_size
 
-        line1 = Polygon([(0, ATL[1]), (mod, ATR[1]), (0, ABL[1]), (mod, ABR[1])])
+        line1 = LineString([(avatarx, 0), (avatarx, mod)])
+        sprite = Polygon([STL, STR, SBL, SBR])
+
+        if(line1.intersects(sprite)):
+            return True
+
+        return False
+        
+    def collidesX(self, avatary, sprite, game):
+        avatary = -avatary
+        
+        STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
+
+        STL = (STL[0], -STL[1])
+        STR = (STR[0], -STR[1])
+        SBL = (SBL[0], -SBL[1])
+        SBR = (SBR[0], -SBR[1])
+
+        mod = game.width*game.block_size
+
+        line1 = LineString([(0, avatary), (mod, avatary)])
         sprite = Polygon([STL, STR, SBL, SBR])
 
         if(line1.intersects(sprite)):
@@ -221,8 +216,8 @@ class UltrasonicObserver(StateObserver):
         for sprite in sprites:
             if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
 
-                t1 = self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
-                t2 = self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
+                t1 = self.collidesY(avatar.rect.x, sprite, self.game) or self.collidesY(sprite.rect.x, avatar, self.game)
+                t2 = self.collidesX(avatar.rect.y, sprite, self.game) or self.collidesX(sprite.rect.y, avatar, self.game)
 
                 if(t1):
                     if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
