@@ -191,7 +191,7 @@ class UltrasonicObserver(StateObserver):
 
         mod = game.width*game.block_size
 
-        line1 = LineString([(0, -avatar.topleft[1]), (mod, -avatar.topleft[1]), (0, -avatar.botleft[1]), (mod, -avatar.botleft[1])])
+        line1 = LineString([(0, -avatar.rect.topleft[1]), (mod, -avatar.rect.topleft[1]), (0, -avatar.rect.botleft[1]), (mod, -avatar.rect.botleft[1])])
         sprite = Polygon([STL, STR, SBL, SBR])
 
         if(line1.intersects(sprite) and not line1.touches(sprite)):
