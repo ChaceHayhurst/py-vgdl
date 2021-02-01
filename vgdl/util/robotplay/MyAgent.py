@@ -8,11 +8,13 @@ class MyAgent(Agent):
         self.i = 0
 
     def getAction(self, state, reward, possible_actions, env):
-        time.sleep(0.2)
+        time.sleep(0.5)
         self.i+= 1
         env.render()
-        if (0<self.i and self.i<7):
-            return 0
+        if (0<self.i and self.i<6):
+            return 2
+        if (5<self.i and self.i<10):
+            return 1
         return 3
 
         

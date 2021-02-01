@@ -179,9 +179,9 @@ class UltrasonicObserver(StateObserver):
         line2 = LineString([(ATR[0], 0), (ATR[0], -mod)])
         sprite = Polygon([STL, STR, SBL, SBR])
 
-        if(line1.intersects(sprite)):
+        if(line1.crosses(sprite)):
             return True
-        elif(line2.intersects(sprite)):
+        elif(line2.crosses(sprite)):
             return True
         
         return False
@@ -205,9 +205,9 @@ class UltrasonicObserver(StateObserver):
         line2 = LineString([(0, ABR[1]), (mod, ABR[1])])
         sprite = Polygon([STL, STR, SBL, SBR])
 
-        if(line1.intersects(sprite)):
+        if(line1.crosses(sprite)):
             return True
-        elif (line2.intersects(sprite)):
+        elif (line2.crosses(sprite)):
             return True
         
         return False
