@@ -231,7 +231,7 @@ class UltrasonicObserver(StateObserver):
                         and abs(sprite.rect.y-avatar.rect.y) != 0):
                         closesttop = abs(sprite.rect.y-avatar.rect.y)
                 
-                if(t2 and not sprite.rect.topleft[1] < avatar.rect.bottomleft[1]):
+                if(t2 and not sprite.rect.topleft[1] > avatar.rect.bottomleft[1]):
                     if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestright = abs(sprite.rect.x-avatar.rect.x)
