@@ -202,7 +202,7 @@ class UltrasonicObserver(StateObserver):
         mod = game.width*game.block_size
 
         line1 = LineString([(ATL[1], 0), (ATL[1], mod)])
-        line2 = LineString([(ATR[1], 0), (ATR[1], mod)])
+        line2 = LineString([(ABR[1], 0), (ABR[1], mod)])
         sprite = Polygon([STL, STR, SBL, SBR])
 
         if(line1.intersects(sprite)):
@@ -240,17 +240,16 @@ class UltrasonicObserver(StateObserver):
                         closesttop = abs(sprite.rect.y-avatar.rect.y)
                 
                 if(t2):
-                    print(sprite.id)
                     if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestright = abs(sprite.rect.x-avatar.rect.x)
+                        print("r" + sprite.id)
                 
                     if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
-                        
-                    print(closestleft)
-                    print(closestright)
+                        print('l' + sprite.id)
+
 
         obs = KeyValueObservation(
             left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
