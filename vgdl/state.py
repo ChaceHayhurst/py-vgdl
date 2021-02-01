@@ -292,7 +292,7 @@ class CombinedObserver(StateObserver):
     def _get_distance(self, s1, s2):
         return math.hypot(s1.rect.x - s2.rect.x, s1.rect.y - s2.rect.y)
 
-        def collidesY(self, avatar, sprite, game):
+    def collidesY(self, avatar, sprite, game):
         ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
 
