@@ -219,17 +219,15 @@ class UltrasonicObserver(StateObserver):
         closestleft = avatar.rect.x
         closestright = self.game.width*self.game.block_size - avatar.rect.x
         closestbottom = self.game.height*self.game.block_size - avatar.rect.y
-        print(self.game.height*self.game.block_size)
-        print(self.game.width*self.game.block_size)
         closesttop = avatar.rect.y
 
         for sprite in sprites:
             if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
 
                 t1 = True
-                # self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
+                self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
                 t2 = True
-                # self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
+                self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
 
                 if(t1):
                     if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
