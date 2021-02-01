@@ -361,26 +361,36 @@ class CombinedObserver(StateObserver):
                     positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
                 
         avatars = self.game.get_avatars()
-        assert avatars
         avatar = avatars[0]
 
         avatar_pos = avatar.rect.topleft
         sprites = self.game.sprite_registry.sprites()
-        DistVar = (self.game.width*self.game.block_size+self.game.height*self.game.block_size)*0.1
-        types = []
-        positions = []
+        #Initializes walls as farthest points
+        closestleft = avatar.rect.x
+        closestright = self.game.width*self.game.block_size - avatar.rect.x
+        closestbottom = self.game.height*self.game.block_size - avatar.rect.y
+        closesttop = avatar.rect.y
 
         for sprite in sprites:
             if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
-                name = sprite.id.split('.')[0]
 
-                if not name in self.vocab:
-                    self.vocab[name] = self.curId
-                    self.curId+= 1
+                t1 = self.collidesY(avatar, sprite, self.game)
+                t2 = self.collidesX(avatar, sprite, self.game)
+
+                if(t1):
+                    if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom):
+                        closestbottom = abs(sprite.rect.y-avatar.rect.y)
                 
-                if(self._get_distance(avatar, sprite) < DistVar):
-                    types.append(self.vocab[name])
-                    positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
+                    if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop):
+                        closesttop = abs(sprite.rect.y-avatar.rect.y)
+                
+                if(t2):
+                    if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright):
+                        closestright = abs(sprite.rect.x-avatar.rect.x)
+                
+                    if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft):
+                        closestleft = abs(sprite.rect.x-avatar.rect.x)
+
 
         obs = KeyValueObservation(
             left = closestleft, right=closestright, top=closesttop, bottom = closestbottom, types = types, positions = positions
