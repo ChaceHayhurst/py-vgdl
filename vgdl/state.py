@@ -7,7 +7,7 @@ import math
 import copy
 import numpy as np
 from shapely.geometry import Polygon, LineString
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 class Observation:
     def as_array(self):
