@@ -12,7 +12,7 @@ class MyAgent(Agent):
         self.i+= 1
         env.render()
         if (0<self.i and self.i<6):
-            return 2
+            return 0
         if (5<self.i and self.i<10):
             return 1
         return 3
