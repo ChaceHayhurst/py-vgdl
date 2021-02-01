@@ -180,8 +180,8 @@ class UltrasonicObserver(StateObserver):
         sprite = Polygon([STL, STR, SBL, SBR])
 
         if(line1.intersects(sprite) and not line1.touches(sprite)):
-            return (sprite, True)
-        return (sprite, False)
+            return True
+        return False
         
     def collidesX(self, avatar, sprite, game):
         ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
