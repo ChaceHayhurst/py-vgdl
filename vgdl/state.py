@@ -161,7 +161,7 @@ class UltrasonicObserver(StateObserver):
     def _get_distance(self, s1, s2):
         return (s1.rect.x - s2.rect.x, s1.rect.y - s2.rect.y)
 
-    def collidesY(self, avatarx, sprite, game):
+    def collidesY(self, avatar, sprite, game):
         
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
 
@@ -172,15 +172,15 @@ class UltrasonicObserver(StateObserver):
 
         mod = game.width*game.block_size
 
-        line1 = LineString([(avatarx, 0), (avatarx, mod)])
+        line1 = Polygon([(avatar.rect.topleft[0], 0), (avatar.rect.topleft[0], mod), (avatar.rect.topright[0], 0), (avatar.rect.topright[0], mod)])
         sprite = Polygon([STL, STR, SBL, SBR])
 
-        if(line1.intersects(sprite)):
+        if(line1.intersects(sprite) and not line1.touches(sprite)):
             return True
 
         return False
         
-    def collidesX(self, avatary, sprite, game):
+    def collidesX(self, avatar, sprite, game):
         avatary = -avatary
         
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
@@ -192,10 +192,10 @@ class UltrasonicObserver(StateObserver):
 
         mod = game.width*game.block_size
 
-        line1 = LineString([(0, avatary), (mod, avatary)])
+        line1 = LineString([(0, -avatar.topleft[1]), (mod, -avatar.topleft[1]), (0, -avatar.botleft[1]), (mod, -avatar.botleft[1])])
         sprite = Polygon([STL, STR, SBL, SBR])
 
-        if(line1.intersects(sprite)):
+        if(line1.intersects(sprite) and not line1.touches(sprite)):
             return True
 
         return False
@@ -215,8 +215,8 @@ class UltrasonicObserver(StateObserver):
         for sprite in sprites:
             if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
 
-                t1 = self.collidesY(avatar.rect.x, sprite, self.game) or self.collidesY(sprite.rect.x, avatar, self.game)
-                t2 = self.collidesX(avatar.rect.y, sprite, self.game) or self.collidesX(sprite.rect.y, avatar, self.game)
+                t1 = self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
+                t2 = self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
 
                 if(t1):
                     if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
