@@ -292,26 +292,50 @@ class CombinedObserver(StateObserver):
     def _get_distance(self, s1, s2):
         return math.hypot(s1.rect.x - s2.rect.x, s1.rect.y - s2.rect.y)
 
-    def collidesY(self, avatar, sprite):
+        def collidesY(self, avatar, sprite, game):
         ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
 
+        ATL = (ATL[0], -ATL[1])
+        ATR = (ATR[0], -ATR[1])
+        ABL = (ABL[0], -ABL[1])
+        ABR = (ABR[0], -ABR[1])
+        STL = (STL[0], -STL[1])
+        STR = (STR[0], -STR[1])
+        SBL = (SBL[0], -SBL[1])
+        SBR = (SBR[0], -SBR[1])
 
-        if((ATR[1]>= STL[1] and ABR[1]<= STL[1]) or (ATR[1]>= STR[1] and ABR[1]<= STR[1]) or (ATR[1]>= SBL[1] and ABR[1]<= SBL[1])
-            or (ATR[1]>= SBR[1] and ABR[1]<= SBR[1])):
+        mod = game.height*game.block_size
+
+        line1 = Polygon([(ATL[0], 0), (ATL[0], -mod), (ABR[0], 0), (ABR[0], -mod)])
+        sprite = Polygon([STL, STR, SBL, SBR])
+
+        if(line1.overlaps(sprite)):
             return True
-        
         return False
         
-    def collidesX(self, avatar, sprite):
+    def collidesX(self, avatar, sprite, game):
         ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
 
-        if((ATL[0] <= STL[0] and ATR[0]>= STL[0]) or (ATL[0] <= STR[0] and ATR[0]>= STR[0]) or (ATL[0] <= SBL[0] and ATR[0]>= SBL[0])
-            or (ATL[0] <= SBR[0] and ATR[0]>= SBR[0])):
+        ATL = (ATL[0], -ATL[1])
+        ATR = (ATR[0], -ATR[1])
+        ABL = (ABL[0], -ABL[1])
+        ABR = (ABR[0], -ABR[1])
+        STL = (STL[0], -STL[1])
+        STR = (STR[0], -STR[1])
+        SBL = (SBL[0], -SBL[1])
+        SBR = (SBR[0], -SBR[1])
+
+        mod = game.width*game.block_size
+
+        line1 = Polygon([(0, ATL[1]), (mod, ATL[1]), (0, ABL[1]), (mod, ABL[1])])
+        sprite = Polygon([STL, STR, SBL, SBR])
+
+        if(line1.overlaps(sprite)):
             return True
-        
         return False
+
 
     def get_observation(self):
         avatars = self.game.get_avatars()
@@ -336,40 +360,27 @@ class CombinedObserver(StateObserver):
                     types.append(self.vocab[name])
                     positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
                 
-                avatars = self.game.get_avatars()
+        avatars = self.game.get_avatars()
         assert avatars
         avatar = avatars[0]
 
         avatar_pos = avatar.rect.topleft
         sprites = self.game.sprite_registry.sprites()
-        #Initializes walls as farthest points
-        closestleft = avatar.rect.x
-        closestright = self.game.width*self.game.block_size - avatar.rect.x
-        closestbottom = self.game.height*self.game.block_size - avatar.rect.y
-        closesttop = avatar.rect.y
+        DistVar = (self.game.width*self.game.block_size+self.game.height*self.game.block_size)*0.1
+        types = []
+        positions = []
 
         for sprite in sprites:
             if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
-                t1 = self.collidesX(avatar, sprite) or self.collidesX(sprite, avatar)
-                t2 = self.collidesY(avatar, sprite) or self.collidesY(sprite, avatar)
+                name = sprite.id.split('.')[0]
 
-                if(t1):
-                    if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
-                        and abs(sprite.rect.y-avatar.rect.y) != 0):
-                        closestbottom = abs(sprite.rect.y-avatar.rect.y)
+                if not name in self.vocab:
+                    self.vocab[name] = self.curId
+                    self.curId+= 1
                 
-                    if(sprite.rect.y<avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closesttop
-                        and abs(sprite.rect.y-avatar.rect.y) != 0):
-                        closesttop = abs(sprite.rect.y-avatar.rect.y)
-                
-                if(t2):
-                    if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
-                        and abs(sprite.rect.x-avatar.rect.x) != 0):
-                        closestright = abs(sprite.rect.x-avatar.rect.x)
-                
-                    if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
-                        and abs(sprite.rect.x-avatar.rect.x) != 0):
-                        closestleft = abs(sprite.rect.x-avatar.rect.x)
+                if(self._get_distance(avatar, sprite) < DistVar):
+                    types.append(self.vocab[name])
+                    positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
 
         obs = KeyValueObservation(
             left = closestleft, right=closestright, top=closesttop, bottom = closestbottom, types = types, positions = positions
