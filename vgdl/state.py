@@ -248,6 +248,9 @@ class UltrasonicObserver(StateObserver):
                     if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
+                        
+                    print(closestleft)
+                    print(closestright)
 
         obs = KeyValueObservation(
             left = closestleft, right=closestright, top=closesttop, bottom = closestbottom
