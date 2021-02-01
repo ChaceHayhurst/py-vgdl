@@ -230,8 +230,10 @@ class UltrasonicObserver(StateObserver):
         for sprite in sprites:
             if(sprite.id.split('.')[0] != 'background' and sprite.id.split('.')[0] != 'avatar'):
 
-                t1 = self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
-                t2 = self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
+                t1 = True
+                # self.collidesY(avatar, sprite, self.game) or self.collidesY(sprite, avatar, self.game)
+                t2 = True
+                # self.collidesX(avatar, sprite, self.game) or self.collidesX(sprite, avatar, self.game)
 
                 if(t1):
                     if(sprite.rect.y>avatar.rect.y and abs(sprite.rect.y-avatar.rect.y)<closestbottom
