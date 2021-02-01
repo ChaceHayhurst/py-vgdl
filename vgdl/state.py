@@ -179,8 +179,8 @@ class UltrasonicObserver(StateObserver):
         sprite = Polygon([STL, STR, SBL, SBR])
 
         if(line1.intersects(sprite) and not line1.touches(sprite)):
-            return True
-        return False
+            return (sprite, True)
+        return (sprite, False)
         
     def collidesX(self, avatar, sprite, game):
         ATL, ATR, ABL, ABR = (avatar.rect.topleft, avatar.rect.topright, avatar.rect.bottomleft, avatar.rect.bottomright)
@@ -201,7 +201,17 @@ class UltrasonicObserver(StateObserver):
         sprite = Polygon([STL, STR, SBL, SBR])
 
         if(line1.intersects(sprite) and not line1.touches(sprite)):
+            x,y = sprite.exterior.xy
+            plt.plot(x,y)
+            x,y = avatar.exterior.xy
+            plt.plot(x, y)
+            print('t')
             return True
+        x,y = sprite.exterior.xy
+            plt.plot(x,y)
+            x,y = avatar.exterior.xy
+            plt.plot(x, y)
+            print('f')    
         return False
 
     def get_observation(self):
@@ -235,12 +245,10 @@ class UltrasonicObserver(StateObserver):
                     if(sprite.rect.x>avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestright 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestright = abs(sprite.rect.x-avatar.rect.x)
-                        print("r " + sprite.id)
                 
                     if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft 
                         and abs(sprite.rect.x-avatar.rect.x) != 0):
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
-                        print('l ' + sprite.id)
 
 
         obs = KeyValueObservation(
