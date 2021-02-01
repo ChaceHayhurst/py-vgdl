@@ -181,7 +181,6 @@ class UltrasonicObserver(StateObserver):
         return False
         
     def collidesX(self, avatar, sprite, game):
-        avatary = -avatary
         
         STL, STR, SBL, SBR = (sprite.rect.topleft, sprite.rect.topright, sprite.rect.bottomleft, sprite.rect.bottomright)
 
