@@ -179,7 +179,7 @@ class UltrasonicObserver(StateObserver):
         line1 = Polygon([(ATL[0], 0), (ATR[0], mod), (ABL[0], 0), (ABR[0], mod)])
         sprite = Polygon([STL, STR, SBL, SBR])
 
-        if(line1.intersects(sprite) and not line1.touches(sprite)):
+        if(line1.intersects(sprite)):
             return True
         return False
         
@@ -201,7 +201,7 @@ class UltrasonicObserver(StateObserver):
         line1 = Polygon([(0, ATL[1]), (mod, ATR[1]), (0, ABL[1]), (mod, ABR[1])])
         sprite = Polygon([STL, STR, SBL, SBR])
 
-        if(line1.intersects(sprite) and not line1.touches(sprite)):
+        if(line1.intersects(sprite)):
             return True
 
         return False
