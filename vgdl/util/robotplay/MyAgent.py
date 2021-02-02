@@ -21,4 +21,4 @@ class MyAgent(Agent):
 
 
 
-runGame(MyAgent(), "C:/Users/Chace/Documents/GitHub/VGDL Tasks/VGDLTask1_lv1.txt", observer='vgdl.state.CombinedObserver')
+runGame(MyAgent(), "C:/Users/Chace/Documents/GitHub/VGDL Tasks/VGDLTask2_lv1.txt", observer='vgdl.state.PerfectObserver', prob=0.75)

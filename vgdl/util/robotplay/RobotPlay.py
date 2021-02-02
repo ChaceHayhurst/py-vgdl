@@ -8,6 +8,7 @@ import gym
 import time
 import vgdl.interfaces.gym
 import vgdl.util.robotplay.Agent
+import 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -31,7 +32,7 @@ def register_vgdl_env(domain_file, level_file, observer=None, blocksize=None):
     return env_name
 
 
-def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, reps=1, blocksize=24, tracedir=None, pause_on_finish=False):
+def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, reps=1, blocksize=24, tracedir=None, pause_on_finish=False, prob=1.0):
 
 
     if ontology is not None:
@@ -75,6 +76,8 @@ def runGame(agent, levelfile, domainfile=None, ontology=None, observer=None, rep
         while(not done):
             env.render()
             action = agent.getAction(obs, reward, env.action_space, env)
+            if(prob < random.uniform(0.0, 1.0)):
+                action = 4
             obs, reward, done, _ = env.step(action)
             print(obs)
     
