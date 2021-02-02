@@ -8,7 +8,7 @@ import gym
 import time
 import vgdl.interfaces.gym
 import vgdl.util.robotplay.Agent
-import 
+import random
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
