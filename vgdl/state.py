@@ -281,10 +281,10 @@ class ColorObserver(StateObserver):
                 if(self._get_distance(avatar, sprite) < DistVar):
                     types.append(self.vocab[name])
                     x = sprite.rect.x-avatar.rect.x
-                    x = random.normal(loc=x, scale=x/10)
+                    x = random.normal(loc=x, scale=abs(x)/10)
 
                     y = sprite.rect.y - avatar.rect.y
-                    y = random.normal(loc=y, scale=y/10)
+                    y = random.normal(loc=y, scale=abs(y)/10)
                     positions.append((x, y))
                 
 
@@ -370,10 +370,10 @@ class CombinedObserver(StateObserver):
                 if(self._get_distance(avatar, sprite) < DistVar):
                     types.append(self.vocab[name])
                     x = sprite.rect.x-avatar.rect.x
-                    x = random.normal(loc=x, scale=x/10)
+                    x = random.normal(loc=x, scale=abs(x)/10)
 
                     y = sprite.rect.y - avatar.rect.y
-                    y = random.normal(loc=y, scale=y/10)
+                    y = random.normal(loc=y, scale=abs(y)/10)
                     positions.append((x, y))
                 
         avatars = self.game.get_avatars()
