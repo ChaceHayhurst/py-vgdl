@@ -7,6 +7,7 @@ import math
 import copy
 import numpy as np
 from shapely.geometry import Polygon, LineString
+import random
 
 class Observation:
     def as_array(self):
@@ -235,6 +236,11 @@ class UltrasonicObserver(StateObserver):
                 
                     if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft):
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
+        
+        closestleft = random.normal(loc = closestleft, scale = closestleft/10)
+        closestright = random.normal(loc = closestright, scale = closestright/10)
+        closesttop = random.normal(loc = closesttop, scale = closesttop/10)
+        closestbottom = random.normal(loc = closestbottom, scale = closestbottom/10)
 
 
         obs = KeyValueObservation(
@@ -274,7 +280,12 @@ class ColorObserver(StateObserver):
                 
                 if(self._get_distance(avatar, sprite) < DistVar):
                     types.append(self.vocab[name])
-                    positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
+                    x = sprite.rect.x-avatar.rect.x
+                    x = random.normal(loc=x, scale=x/10)
+
+                    y = sprite.rect.y - avatar.rect.y
+                    y = random.normal(loc=y, scale=y/10)
+                    positions.append((x, y))
                 
 
         obs = KeyValueObservation(
@@ -358,7 +369,12 @@ class CombinedObserver(StateObserver):
                 
                 if(self._get_distance(avatar, sprite) < DistVar):
                     types.append(self.vocab[name])
-                    positions.append((sprite.rect.x-avatar.rect.x, sprite.rect.y - avatar.rect.y))
+                    x = sprite.rect.x-avatar.rect.x
+                    x = random.normal(loc=x, scale=x/10)
+
+                    y = sprite.rect.y - avatar.rect.y
+                    y = random.normal(loc=y, scale=y/10)
+                    positions.append((x, y))
                 
         avatars = self.game.get_avatars()
         avatar = avatars[0]
@@ -390,6 +406,12 @@ class CombinedObserver(StateObserver):
                 
                     if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft):
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
+        
+
+        closestleft = random.normal(loc = closestleft, scale = closestleft/10)
+        closestright = random.normal(loc = closestright, scale = closestright/10)
+        closesttop = random.normal(loc = closesttop, scale = closesttop/10)
+        closestbottom = random.normal(loc = closestbottom, scale = closestbottom/10)
 
 
         obs = KeyValueObservation(
