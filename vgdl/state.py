@@ -7,7 +7,7 @@ import math
 import copy
 import numpy as np
 from shapely.geometry import Polygon, LineString
-import random
+import numpy.random as random
 
 class Observation:
     def as_array(self):
