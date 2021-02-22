@@ -237,10 +237,10 @@ class UltrasonicObserver(StateObserver):
                     if(sprite.rect.x<avatar.rect.x and abs(sprite.rect.x-avatar.rect.x)<closestleft):
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
         
-        closestleft = random.normal(loc = closestleft, scale = closestleft/10)
-        closestright = random.normal(loc = closestright, scale = closestright/10)
-        closesttop = random.normal(loc = closesttop, scale = closesttop/10)
-        closestbottom = random.normal(loc = closestbottom, scale = closestbottom/10)
+        closestleft = random.normal(loc = closestleft, scale = closestleft/10 + 1e-4)
+        closestright = random.normal(loc = closestright, scale = closestright/10 + 1e-4)
+        closesttop = random.normal(loc = closesttop, scale = closesttop/10 + 1e-4)
+        closestbottom = random.normal(loc = closestbottom, scale = closestbottom/10 + 1e-4)
 
 
         obs = KeyValueObservation(
@@ -408,10 +408,10 @@ class CombinedObserver(StateObserver):
                         closestleft = abs(sprite.rect.x-avatar.rect.x)
         
 
-        closestleft = random.normal(loc = closestleft, scale = closestleft/10)
-        closestright = random.normal(loc = closestright, scale = closestright/10)
-        closesttop = random.normal(loc = closesttop, scale = closesttop/10)
-        closestbottom = random.normal(loc = closestbottom, scale = closestbottom/10)
+        closestleft = random.normal(loc = closestleft, scale = abs(closestleft)/10 + 1e-4)
+        closestright = random.normal(loc = closestright, scale = abs(closestright)/10 + 1e-4)
+        closesttop = random.normal(loc = closesttop, scale = abs(closesttop)/10 + 1e-4)
+        closestbottom = random.normal(loc = closestbottom, scale = abs(closestbottom)/10 + 1e-4)
 
 
         obs = KeyValueObservation(
